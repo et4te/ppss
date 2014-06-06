@@ -1,6 +1,6 @@
-== ParaPhrase Summer School 2014: Erlang Offloading
+# ParaPhrase Summer School 2014: Erlang Offloading
 
-# Directory Structure
+## Directory Structure
 
 | Path    | Description 
 | ------- |:-----------------------------:|
@@ -11,14 +11,14 @@
 | jl/     | Julia source code
 | doc/    | Documentation
 
-# Installation
+## Installation
 
 ```bash
 make
 make make_boot
 ```
 
-## Testing
+### Testing
 
 ```bash
 ./start.sh
