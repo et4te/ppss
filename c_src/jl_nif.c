@@ -153,9 +153,14 @@ run(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
   
   jl_value_t* ocl_global_size = jl_box_uint32(global_size);
   jl_value_t* ocl_local_size = jl_box_uint32(local_size);
+
   jl_value_t* ocl_kernel_path = jl_pchar_to_string(kernel_path, kernel_path_len);
   jl_value_t* ocl_fun_path = jl_pchar_to_string(fun_path, fun_path_len);
   jl_value_t* ocl_fun_name = jl_pchar_to_string(fun_name, fun_name_len);
+
+  free(kernel_path);
+  free(fun_path);
+  free(fun_name);
 
   const int n_kernel_args = 5;
   jl_value_t** ocl_kernel_args = 
@@ -166,6 +171,7 @@ run(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
     (jl_value_t**) malloc(sizeof(jl_value_t*) * n_run_args);
 
   jl_value_t* ocl_array_type = jl_apply_array_type(jl_float64_type, 1);
+
   jl_array_t* ocl_input = jl_ptr_to_array_1d(ocl_array_type, input, input_len, 1);
   
   ocl_kernel_args[0] = ocl_global_size;
@@ -191,6 +197,7 @@ run(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
   for (i = 0; i < output_len; i++) {
     ocl_output[i] = enif_make_double(env, data[i]);
   }
+  free(input);
 
   return enif_make_list_from_array(env, ocl_output, output_len);
 }

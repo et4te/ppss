@@ -3,7 +3,9 @@
 %%------------------------------------------------------------------------------
 -module(cl_example).
 
--export([init/0]).
+-on_load(init/0).
+
+%%-export([init/0]).
 -export([gen_rands/1]).
 -export([square/1, sum/1, min/1, max/1]).
 
