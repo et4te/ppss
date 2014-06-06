@@ -2,11 +2,20 @@
 
 #### Requirements
 
-* Julia 0.3
+* Julia
 * Erlang OTP R17
 * An OpenCL runtime
 
-The following environment variables must be defined.
+
+#### Installation
+
+```bash
+# install Julia
+git clone https://github.com/JuliaLang/julia julia
+cd julia && make
+````
+
+The following environment variables must be defined before compiling the cl_example source code.
 
 ```bash
 export LD_LIBRARY_PATH=/path/to/julia/src/lib/:$LD_LIBRARY_PATH
@@ -14,7 +23,7 @@ export JULIA_HOME=/path/to/julia/
 export ERLANG_HOME=/path/to/erlang/lib/
 ```
 
-#### Installation
+Then its a simple matter of calling make.
 
 ```bash
 # compile the code
@@ -22,7 +31,11 @@ make
 
 # create a boot file 
 make make_boot
+```
 
+To test the code you may spawn a node and feed it some Erlang.
+
+```bash
 # start an OpenCL enabled node
 ./start.sh
 ```
