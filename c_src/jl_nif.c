@@ -57,7 +57,7 @@ custom_get_float64_array(ErlNifEnv* env, ERL_NIF_TERM list, double* buf)
 //==============================================================================
 
 static ERL_NIF_TERM
-load_file(ErlNifEnv* env, int argc, ERL_NIF_TERM argv[])
+load_file(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
   JL_SET_STACK_BASE;
 
@@ -86,7 +86,7 @@ load_file(ErlNifEnv* env, int argc, ERL_NIF_TERM argv[])
 }
 
 static ERL_NIF_TERM
-run(ErlNifEnv* env, int argc, ERL_NIF_TERM argv[])
+run(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
   JL_SET_STACK_BASE;
   
