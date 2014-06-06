@@ -12,6 +12,7 @@ start: all start_all
 
 compile:
 	@$(CC) -noinput +B -eval 'case make:all() of up_to_date -> halt(0); error -> halt(1) end.'
+	(cd c_src; make)
 
 edoc:		
 	@echo Generating $(APP) documentation from srcs
@@ -27,4 +28,4 @@ ebin:
 	@mkdir ebin
 
 clean:
-	rm -rf ebin/*.beam ebin/erl_crash.dump erl_crash.dump ebin/*.boot ebin/*.rel ebin/*.script doc/*.html doc/*.css doc/erlang.png doc/edoc-info
+	rm -rf ebin/*.beam ebin/erl_crash.dump erl_crash.dump ebin/*.boot ebin/*.rel ebin/*.script doc/*.html doc/*.css doc/erlang.png doc/edoc-info priv/*.so
