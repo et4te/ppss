@@ -1,22 +1,29 @@
 == ParaPhrase Summer School 2014: Erlang Offloading
 
-Directory Structure
+# Directory Structure
 
-ebin/   -- Beam files
-src/    -- Erlang source code
-c_src/  -- C source code
-cl/     -- OpenCL kernels and functions
-jl/     -- Julia source code
-doc/    -- Documentation
+| Path    | Description 
+| ------- |:-----------------------------:|
+| ebin/   | Beam files
+| src/    | Erlang source code
+| c_src/  | C source code
+| cl/     | OpenCL kernels and functions
+| jl/     | Julia source code
+| doc/    | Documentation
 
-Installation
+# Installation
 
-$ make
-$ make make_boot
+```bash
+make
+make make_boot
+```
 
-Testing
+## Testing
 
-$ ./start.sh
+```bash
+./start.sh
+```
 
-cl_example:init().
+```erlang
 cl_example_srv:process_data(cl_example:gen_rands(1024)).
+```
