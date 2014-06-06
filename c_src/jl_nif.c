@@ -202,7 +202,7 @@ run(ErlNifEnv* env, int argc, ERL_NIF_TERM argv[])
 static int
 load(ErlNifEnv* env, void** priv, ERL_NIF_TERM load_info)
 {
-  void* handle = dlopen("/home/edtate/julia/usr/lib/libjulia.so", (RTLD_NOW | RTLD_GLOBAL));
+  void* handle = dlopen("libjulia.so", (RTLD_NOW | RTLD_GLOBAL));
 
   if (!handle) {
     fprintf(stderr, "%s\n", dlerror());
