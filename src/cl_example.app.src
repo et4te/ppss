@@ -1,0 +1,24 @@
+{application, cl_example,
+ [
+  {description, "Distributes work to nodes."},
+  {vsn, "0.1"},
+  {modules,
+   [
+    cl_example_app, cl_example_sup, cl_example_srv, cl_example, jl_nif
+   ]},
+
+  {registered, []},
+
+  {applications,
+   [
+    kernel,
+    stdlib
+   ]},
+
+  {included_applications, []},
+
+  {env, []},
+
+  {mod, {cl_example_app, []}}
+ ]
+}.
