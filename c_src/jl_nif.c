@@ -93,9 +93,9 @@ run(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
   int global_size, local_size;
   int kernel_type_len, kernel_path_len;
   int fun_path_len, fun_name_len;
-  int input_len;
+  int input_len, output_len;
 
-  if (argc != 7) {
+  if (argc != 8) {
     return enif_make_badarg(env);
   }
 
@@ -105,7 +105,7 @@ run(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
   if (!enif_get_uint(env, argv[1], &local_size)) {
     return enif_make_badarg(env);
   }
-  
+
   if (!enif_get_list_length(env, argv[2], &kernel_type_len)) {
     return enif_make_badarg(env);
   }
@@ -119,6 +119,10 @@ run(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
     return enif_make_badarg(env);
   }
   if (!enif_get_list_length(env, argv[6], &input_len)) {
+    return enif_make_badarg(env);
+  }
+
+  if (!enif_get_uint(env, argv[7], &output_len)) {
     return enif_make_badarg(env);
   }
 
@@ -190,7 +194,6 @@ run(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
   // FIXME: output_len varies
   double* data = (double*) jl_array_data(res2);
 
-  int output_len = input_len;
   ERL_NIF_TERM* ocl_output = (ERL_NIF_TERM*) malloc(sizeof(ERL_NIF_TERM) * output_len);
 
   int i;
@@ -238,7 +241,7 @@ unload(ErlNifEnv* env, void* priv)
 
 static ErlNifFunc nif_funcs[] = {
   {"load_file",1,load_file},
-  {"run",7,run}
+  {"run",8,run}
 };
 
 ERL_NIF_INIT(jl_nif, nif_funcs, &load, NULL, &upgrade, &unload);
