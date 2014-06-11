@@ -7,7 +7,7 @@
 
 -export([init/0]).
 
--export([load_file/1, run/7]).
+-export([load_file/1, run/8]).
 
 init() ->
   erlang:load_nif("./priv/jl_nif", 0).
@@ -15,7 +15,7 @@ init() ->
 load_file(_Filename) ->
   {error, "NIF library not loaded"}.
 
-run(GlobalSize, LocalSize, KernelType, KernelSrc, FunSrc, FunName, Input) ->
+run(_GSize, _LSize, _KType, _KSrc, _FSrc, _FName, _In, _OutLen) ->
   {error, "NIF library not loaded"}.
 
 
