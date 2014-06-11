@@ -56,14 +56,14 @@ function ocl_min (gsize, lsize, input)
     sk.run(red, input)
 end
 
-function ocl_max (gsize, lsize, input)
+function ocl_max1 (gsize, lsize, input)
     red = sk.OclReduce(gsize, lsize, reduce_f64_src_3, max_f64_src, "max_f64")
     sk.run(red, input)
 end
 
-function ocl_max (gsize, lsize, input, block)
-    red = sk.OclReduce(gsize, lsize, reduce_f64_src_4, max_f64_src, "max_f64")
-    sk.run(red, input, block)
+function ocl_max2 (gsize, lsize, input)
+    red = sk.OclReduceSerial(gsize, lsize, reduce_f64_src_4, max_f64_src, "max_f64")
+    sk.run(red, input)
 end
 
 #------------------------------------------------------------------------------
@@ -75,10 +75,12 @@ function test ()
 
     input = rand(Float64, gsize)
 
-    ocl_square(gsize, lsize, input)
-    ocl_sum(gsize, lsize, input)
-    ocl_min(gsize, lsize, input)
-    ocl_max(gsize, lsize, input)
+    @time ocl_square(gsize, lsize, input)
+    @time ocl_square(gsize, lsize, input)
+    @time ocl_sum(gsize, lsize, input)
+    @time ocl_min(gsize, lsize, input)
+    @time ocl_max1(gsize, lsize, input)
+    @time ocl_max2(gsize, lsize, input)
 end
 
 end

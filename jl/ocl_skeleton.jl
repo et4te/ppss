@@ -21,7 +21,7 @@ export OclMap, OclReduce
 #------------------------------------------------------------------------------
 abstract OclSkel
 
-immutable OclMap <: OclSkel
+immutable OclMap <: OclSkel 
     global_size::Uint32
     local_size::Uint32
     kernel_path::String
@@ -29,7 +29,15 @@ immutable OclMap <: OclSkel
     fun_name::String
 end
 
-immutable OclReduce <: OclSkel
+immutable OclReduce <: OclSkel 
+    global_size::Uint32
+    local_size::Uint32
+    kernel_path::String
+    fun_path::String
+    fun_name::String
+end
+
+immutable OclReduceSerial <: OclSkel 
     global_size::Uint32
     local_size::Uint32
     kernel_path::String
@@ -94,7 +102,7 @@ function run (sk::OclReduce, input::Array{Float64})
     cl.read(queue, o_buff)
 end
 
-function run (sk::OclReduce, input::Array{Float64}, block::Uint32)
+function run (sk::OclReduceSerial, input::Array{Float64})
     src = build_kernel_src(sk.kernel_path, sk.fun_path, sk.fun_name)
 
     prg = cl.Program(ctx, source=src)
@@ -107,6 +115,7 @@ function run (sk::OclReduce, input::Array{Float64}, block::Uint32)
 
     reduce_k = cl.Kernel(prg, "reduce_f64")
 
+    block = 1024
     i_len = length(input)
 
     i_buff = cl.Buffer(Float64, ctx, (:r, :copy), hostbuf=input)
